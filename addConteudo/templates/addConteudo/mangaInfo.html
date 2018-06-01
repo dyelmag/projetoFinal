@@ -1,0 +1,47 @@
+{% extends 'inicio.html' %}
+{% block content %}
+     {% csrf_token %}
+    <style>
+        .capa {
+            display: inline-table;
+            max-width: 100%;
+            margin: 10px;
+            white-space: normal;
+        }
+    </style>
+    <div class="row">
+        <div class="col">
+            <center>
+                <img src="{{manga.capa.url}}" name="aboutme" id="output" class="capa">
+            </center>
+        </div>
+        <div class="col" style="margin: 20px">
+                <div class="row">
+                    <h2>{{manga.titulo}}</h2>                
+                </div>
+                <div class="row">
+                    <strong>Tags:</strong>{{manga.tags}}</div> 
+                <div class="row">
+                    <strong>Autor: </strong><a href="/usuario/{{manga.autor.id}}/"> {{manga.autor.first_name}}</a></div>
+                <div class="row">
+                    <strong>Descriçao:</strong>{{manga.descricao}}</div>
+                <hr>
+                <div class="row">
+                    <h3>Capitulos</h3>
+                    {% if user == manga.autor %}
+                        <a href="addCap/">Adicionar Capitulo</a>
+                    {% endif %}
+                </div>
+                
+                 {% for aux in cap %}
+                    <a href="{{aux.cpN}}/">{{aux.cpN}} - {{aux.titulo}}</a>
+                     {% if user == manga.autor %}
+                    <a href="/add/manga/delete/{{pk}}/{{aux.cpN}}/"> - Excluir</a>
+                    {% endif %}
+                    <br> 
+                {% endfor %}           
+    
+    
+        </div>
+    </div>
+{% endblock %}

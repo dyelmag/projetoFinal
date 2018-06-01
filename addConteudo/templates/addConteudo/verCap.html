@@ -1,0 +1,75 @@
+{% extends 'inicio.html' %}
+{% block content %}
+<style>
+    div.titulo {
+        text-align: left;
+    }
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dir {
+        float: right;
+    }
+
+    .capa {
+        display: inline-table;
+        max-width: 100%;
+        margin: 10px;
+        white-space: normal;
+    }
+
+    .scroll-area{
+        width:100%;
+        height:calc(100% - 200px);
+        float:left;
+        overflow-y:scroll;
+    }
+</style>
+{% csrf_token %}
+<div class="row">
+    <div class="col-7">
+        <center>
+            <img src="{{cap.capa.url}}" name="aboutme" id="output" class="capa">
+        </center>
+    </div>
+    <div class="col-5">
+        <div class="titulo">
+            <h3><a href="../../{{pk}}/">{{manga.titulo}}</a>
+                <small>{{cap.titulo}}</small>
+            </h3>
+            <p>Capitulo: {{cap.cpN}}</p>
+            <strong>Resumo:</strong>
+            <blockquote>
+                <p style="word-wrap: break-word;">{{cap.resumo}}</p>
+            </blockquote>
+        </div>
+        <hr>
+        <div class="titulo">
+            <center>
+                <h3><small>Capitulos:</small></h3>
+            </center>
+        </div>
+        <div class="scroll-area" style="min-height: 60px;">
+             {% for aux in cap3 %}
+                <a href="../{{aux.cpN}}/">{{aux.cpN}} - {{aux.titulo}}</a>
+                <br> 
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<hr>
+<div class="titulo">
+    <center><h3>Paginas({{total}})</h3></center>
+</div>
+<div class="row" style="margin: 10px">
+    {% for aux in cap2 %}
+        <a href="{{aux.ordem}}">
+            <img src="{{ aux.aquivos.url }}" alt="{{manga.titulo}}" style="margin: 5px" class="img-rounded img-responsive" width="200" height="200"/> 
+        </a>
+        {% endfor %}
+</div>
+{% endblock %}

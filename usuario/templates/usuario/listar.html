@@ -1,0 +1,18 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de veículos cadastrados</title>
+</head>
+
+<body>
+    <ul>
+        {% for aux in object_list %}
+        <li>
+            {{ aux }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

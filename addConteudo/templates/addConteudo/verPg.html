@@ -1,0 +1,70 @@
+{% extends 'inicio.html' %} 
+{% block content %} 
+{% csrf_token %} 
+
+<style>
+    div.titulo {
+        text-align: center;
+    }
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .dir {
+        float: right;
+    }
+
+</style>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">        
+        <div class="titulo">
+            <h3>{{manga.titulo}}:<small>{{cap.titulo}}/{{pg.ordem}}</small></h3>
+        </div>
+        <div class="row">   
+            <div class="col-6">
+                {% if anterior == -1 %}
+                    <a class="btn btn-primary esq" href="../" role="button">proximo</a>
+                {% else %}
+                    <a class="btn btn-primary esq" href="../{{anterior}}" role="button">Anterio</a>
+                {% endif %}                    
+            </div>
+            <div class="col-6">
+                {% if proximo == total %}
+                    <a class="btn btn-primary dir" href="../" role="button">proximo</a>
+                {% else %}
+                    <a class="btn btn-primary dir" href="../{{proximo}}" role="button">proximo</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+<div class="row" >
+<img src="{{pg.aquivos.url}}" style="max-height: 100vh;" />
+</div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-6">
+                {% if anterior == -1 %}
+                    <a class="btn btn-primary esq" href="../" role="button">proximo</a>
+                {% else %}
+                    <a class="btn btn-primary esq" href="../{{anterior}}" role="button">Anterio</a>
+                {% endif %}
+            </div>
+            <div class="col-6">
+                {% if proximo == total %}
+                    <a class="btn btn-primary dir" href="../" role="button">proximo</a>
+                {% else %}
+                    <a class="btn btn-primary dir" href="../{{proximo}}" role="button">proximo</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+{% endblock %}

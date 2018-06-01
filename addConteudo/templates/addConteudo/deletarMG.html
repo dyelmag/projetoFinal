@@ -1,0 +1,13 @@
+{% extends 'inicio.html' %} 
+{% block content %} 
+{% load static %}
+
+    <form action="/add/manga/delete/{{ object.pk }}/" method="post">
+        {% csrf_token %}
+        <p>
+            Tem certeza que deseja excluir o Manga "{{ object.titulo }}" ?
+        </p>
+        <input type="submit" value="Confirmar" />
+    </form>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'inicio.html' %}
+{% block content %}
+{% load static %}
+    {% csrf_token %}
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+        <center>
+            <img src="{{ object.perfil.capa.url }}" name="aboutme" width="200" height="200" border="0" class="rounded-circle"></a>
+            <h3 class="media-heading">{{object.first_name}} {{object.last_name}}</h3>
+            <!--<span><strong>Skills: </strong></span>
+                <span class="label label-warning">HTML5/CSS</span>
+                <span class="label label-info">Adobe CS 5.5</span>
+                <span class="label label-info">Microsoft Office</span>
+                <span class="label label-success">Windows XP, Vista, 7</span>-->
+                {% if user == object %} 
+            <a href="editar/">Editar</a><br>
+            {% endif %}
+            <hr>
+            <p class="text-left"><strong>Sobre: </strong><br>
+                {{object.perfil.sobre}}
+                </p>
+        </center>
+    </div>
+        <div class="col"></div>
+    </div>
+    <hr>
+    <center><h3>Meus mangas
+    {% if user == object %} 
+        <a href="{%url 'add:manga' %}"><small> Adicoinar</small></a>
+    {% endif %}</h3></center>
+    <div class="row" style="margin: 10px">
+            
+        {% for aux in mangas %}
+            <div class="col-sm-6 col-md-4 col-lg-2 mt-2">
+                    <div class="card card-inverse card-info">
+                        <img class="card-img-top" src="{{aux.capa.url}}">
+                        <div class="card-block">
+                            <div class="card-title">
+                                <a href="{%url 'add:manga' %}{{aux.id}}" >{{aux.titulo}}</a>
+                                
+                            </div>
+                            <div class="card-text">
+                                Tags: {{aux.tags}}<br>
+                                 {% if user == object %}
+                                    <a href="/add/manga/delete/{{aux.id}}/">Excluir</a>
+                                 {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}

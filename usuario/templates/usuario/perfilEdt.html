@@ -1,0 +1,45 @@
+{% extends 'inicio.html' %}
+{% block content %}
+<form action="" method="post" class="form-signin" enctype="multipart/form-data">
+    {% csrf_token %}
+    <br>
+    {% if exception %}
+    <p>{{ exception }}</p>
+    asdasdasdasd
+  {% else %}
+<input type='hidden' name='user' value='{{user.id}}'/>
+      <div class="row">
+          <div class="col"></div>
+          <div class="col">
+          <center>
+              <img src="{{ object.perfil.capa.url }}" name="aboutme" id="output" width="200" height="200" border="0" class="rounded-circle">
+              <div class="row">{{form.perfil.capa}}</div>
+              <script>
+                var loadFile = function (event) {
+                    var output = document.getElementById('output');
+                    output.src = URL.createObjectURL(event.target.files[0]);
+                };
+            </script>
+              <div class="row"><strong>Nome: </strong>{{form.user.first_name}}</div>
+              <div class="row"><strong>Sobre Nome:</strong>{{form.user.last_name}}</div>
+              <div class="row"><strong>Email:</strong>{{form.user.email}}</div>
+          </center>
+              <div class="row">
+                <div class="col-5" style="left: -15px;"><strong>Data de Nacimento:</strong>{{form.perfil.dn}}</div>
+                <div class="col-7" style="left: 15px;"><strong>Cidade</strong>{{form.perfil.cidade}}</div>
+              </div>
+          <center>
+              <div class="row"><strong>Sobre:</strong>{{form.perfil.sobre}}</div>
+              <hr>
+            <a href="/usuario/{{user.id}}" class="btn btn-danger" role="button">Cancelar</a>
+            <button type="submit" class="btn btn-success">Salvar</button>
+
+          </center>
+              
+          
+      </div>
+          <div class="col"></div>
+      </div>
+    {% endif %}
+</form>
+{% endblock %}

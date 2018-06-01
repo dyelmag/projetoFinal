@@ -1,0 +1,21 @@
+{% extends 'inicio.html' %}
+{% block content %}
+{% if user.is_authenticated %} 
+<script>
+    window.location = "/";
+</script>
+{% endif %}
+<div class="row align-items-center justify-content-center">
+    <form action="{% url 'usuario:entrar' %}" method="post" class="form-signin">
+        {% csrf_token %}
+        <label for="campo3">Usuario</label>
+        {{form.username}}
+        {{form.username.errors}}
+        <label for="campo3">Senha</label>
+        {{form.password}}
+        {{form.password.errors}}
+        <br>
+        <button type="submit" class="btn btn-success ">Entrar</button>
+    </form>
+</div>
+{% endblock %}

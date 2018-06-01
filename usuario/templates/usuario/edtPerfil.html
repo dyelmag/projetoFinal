@@ -1,0 +1,94 @@
+{% extends 'inicio.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<form action="" method="post" class="form-signin" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type='hidden' name='userID' value='{{user.id}}' />
+    <input type='hidden' name='user' value='{{user.id}}' />
+    <input type='hidden' name='perfilID' value='{{user.perfil.id}}' />
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <img src="{{ user.perfil.capa.url }}" id="output" alt="" class="img-rounded img-responsive" />
+                            <input type="file" name="capa" id="capa_id" onchange="loadFile(event)">
+                            <script>
+                                var loadFile = function(event) {
+                                    var output = document.getElementById('output');
+                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                };
+                            </script>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-12">
+                            <label for="campo1">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" value="{{ user.first_name }}">
+                        </div>
+                        <div class="col-sm-6 col-lg-12">
+                            <label for="campo1">Sobre Nome:</label>
+                            <input type="text" class="form-control" id="Snome" name="Snome" value="{{ user.last_name }}">
+                        </div>
+                        <div class="col-sm-6 col-lg-12">
+                            <label for="campo1">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
+                        </div>
+                        <div class="col-lg-6 col-lg-12">
+                            <label for="campo1">Cidade:</label>
+                            <input type="text" class="form-control" id="cdd" name="cdd" value="{{user.perfil.cidade}}">
+                            <label for="campo1">Data de Nacimento:</label>
+                            {{form.dn}}
+                        </div>
+                        <div class="col-sm-6 col-lg-12">
+                            <label for="campo1">Sobre:</label>
+                            <textarea name="sobre" id="sobre" cols="30" rows="10" class="form-control">
+                                {{user.perfil.sobre}}
+                            </textarea>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col align-items-lg-center">
+            <input type="submit" class="btn btn-success" value="Salvar" />
+            <a href="../../perfil/" class="btn btn-danger" role="button">Cancelar</a>    
+    </div>    
+    </form>
+    {% else %}
+     <li><a href="{% url 'usuario:entrar'%}?next={{request.path}}">Login</a></li>   
+   {% endif %} 
+
+{% endblock %}
+
+
+
+
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+    <center>
+        <img src="{{ object.perfil.capa.url }}" name="aboutme" width="200" height="200" border="0" class="rounded-circle"></a>
+        <div class="row">{{form.perfil.capa}}</div>
+        <div class="row"><strong>Nome: </strong>{{form.user.first_name}}</div>
+        <div class="row"><strong>Sobre Nome:</strong>{{form.user.last_name}}</div>
+        <div class="row"><strong>Email:</strong>{{form.user.email}}</div>
+    </center>
+        <div class="row">
+          <div class="col-5" style="left: -15px;"><strong>Data de Nacimento:</strong>{{form.perfil.dn}}</div>
+          <div class="col-7" style="left: 15px;"><strong>Cidade</strong>{{form.perfil.cidade}}</div>
+        </div>
+    <center>
+        <div class="row"><strong>Sobre:</strong>{{form.perfil.sobre}}</div>
+
+    </center>
+        
+    
+</div>
+    <div class="col"></div>
+</div>

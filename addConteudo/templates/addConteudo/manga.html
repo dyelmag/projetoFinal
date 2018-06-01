@@ -1,0 +1,51 @@
+{% extends 'inicio.html' %}
+{% block content %}
+    <form action="" method="post" class="form-signin" enctype="multipart/form-data">
+        <input type="hidden" name="autor" value="{{user.id}}">
+        {% csrf_token %}
+        <style>
+            .capa{
+                display: inline-table;
+                max-width: 100%;
+                margin: 10px;
+                white-space: normal;
+            }
+        </style>
+        <div class="row">
+            <div class="col"><center><img src="/media/defaut.jpeg" name="aboutme" id="output" class="capa"></center></div>
+            <div class="col" style="margin: 20px">
+                <center>
+                    <div class="row">{{form.capa}}</div>
+                    <script>
+                        var loadFile = function (event) {
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
+                    <div class="row">
+                        <strong>Titulo: </strong>{{form.titulo}}</div>
+                    <div class="row">
+                        <strong>Tags:</strong>{{form.tags}}</div>
+                    <div class="row">
+                        <strong>Status:</strong>
+                        <select class="form-control" id="status_id" name="status">
+                            <option value="0">Em lançamento</option>
+                            <option value="1">Finalizado</option>
+                            <option value="2">Suspenso</option>
+                            <option value="3">Não exibir</option>
+                        </select>
+                    </div>
+                
+                    <div class="row">
+                        <strong>Descriçao:</strong>{{form.descricao}}</div>
+                    <hr>
+                    <a href="/usuario/{{user.id}}" class="btn btn-danger" role="button">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+        
+                </center>
+        
+        
+            </div>
+        </div>
+    </form>
+{% endblock %}
